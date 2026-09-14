@@ -10,4 +10,5 @@ export type BookingRequest = {
   phone: string;
   email: string;
   notes?: string;
+  matchedPartnerIds?: string[];
 };

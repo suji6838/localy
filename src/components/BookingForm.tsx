@@ -2,11 +2,14 @@
 
 import { useState, type FormEvent } from "react";
 import { COURSES, NEIGHBORHOODS } from "@/lib/courses";
+import { SERVICE_TYPES } from "@/lib/services";
+import type { MatchedPartner } from "@/lib/matching";
 import ConsentFields from "@/components/ConsentFields";
 
 export default function BookingForm({ defaultCourseSlug }: { defaultCourseSlug?: string }) {
   const [status, setStatus] = useState<"idle" | "submitting" | "done" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
+  const [matches, setMatches] = useState<MatchedPartner[]>([]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -24,6 +27,7 @@ export default function BookingForm({ defaultCourseSlug }: { defaultCourseSlug?:
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "예약 신청에 실패했습니다.");
+      setMatches(data.matches ?? []);
       setStatus("done");
     } catch (err) {
       setStatus("error");
@@ -33,11 +37,39 @@ export default function BookingForm({ defaultCourseSlug }: { defaultCourseSlug?:
 
   if (status === "done") {
     return (
-      <div className="rounded-2xl border border-border bg-surface p-8 text-center">
-        <p className="font-display text-xl font-bold">예약 신청이 완료되었어요</p>
-        <p className="mt-2 text-sm text-muted">
-          입력하신 연락처로 확정 안내를 드릴게요. 빛나는 하루를 준비해 볼까요?
-        </p>
+      <div className="space-y-6">
+        <div className="rounded-2xl border border-border bg-surface p-8 text-center">
+          <p className="font-display text-xl font-bold">예약 신청이 완료되었어요</p>
+          <p className="mt-2 text-sm text-muted">
+            입력하신 연락처로 확정 안내를 드릴게요. 빛나는 하루를 준비해 볼까요?
+          </p>
+        </div>
+
+        {matches.length > 0 ? (
+          <div>
+            <p className="text-sm font-semibold">이런 파트너와 매칭됐어요</p>
+            <div className="mt-3 space-y-3">
+              {matches.map((m) => (
+                <div key={m.id} className="rounded-xl border border-border bg-surface p-4">
+                  <p className="font-semibold">
+                    {m.name}{" "}
+                    <span className="ml-1 text-xs font-normal text-muted">
+                      {m.category} · {m.neighborhood}
+                    </span>
+                  </p>
+                  <p className="mt-1 text-sm text-muted">{m.intro}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-xs text-muted">
+              위 파트너를 포함해 어울리는 곳을 검토한 뒤 연락드릴게요.
+            </p>
+          </div>
+        ) : (
+          <p className="text-sm text-muted">
+            아직 조건에 딱 맞는 등록 파트너가 없어요. 검토 후 가장 어울리는 곳을 찾아 연결해 드릴게요.
+          </p>
+        )}
       </div>
     );
   }
@@ -64,7 +96,27 @@ export default function BookingForm({ defaultCourseSlug }: { defaultCourseSlug?:
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <Field label="원하는 서비스" name="serviceType" placeholder="예: 헤어, 스킨케어, 웨딩 메이크업" required />
+        <div>
+          <label className="text-sm font-semibold" htmlFor="serviceType">
+            원하는 서비스
+          </label>
+          <select
+            id="serviceType"
+            name="serviceType"
+            required
+            defaultValue=""
+            className="mt-2 w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm"
+          >
+            <option value="" disabled>
+              서비스를 선택해 주세요
+            </option>
+            {SERVICE_TYPES.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+        </div>
         <div>
           <label className="text-sm font-semibold" htmlFor="neighborhood">
             희망 지역

@@ -136,6 +136,14 @@ export default function AdminPage() {
               <p className="mt-2 text-xs text-muted">
                 {b.phone} · {b.email}
               </p>
+              {b.matchedPartnerIds && b.matchedPartnerIds.length > 0 && (
+                <p className="mt-2 text-xs text-accent">
+                  매칭 파트너:{" "}
+                  {b.matchedPartnerIds
+                    .map((id) => experts.find((e) => e.id === id)?.name ?? "삭제됨")
+                    .join(", ")}
+                </p>
+              )}
             </div>
           ))}
         </div>

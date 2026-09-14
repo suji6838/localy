@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { NEIGHBORHOODS } from "@/lib/courses";
 import { PARTNER_TYPES, type PartnerType } from "@/lib/partners";
+import { SERVICE_TYPES } from "@/lib/services";
 import ConsentFields from "@/components/ConsentFields";
 
 export default function RegisterForm({ defaultType }: { defaultType: PartnerType }) {
@@ -72,7 +73,30 @@ export default function RegisterForm({ defaultType }: { defaultType: PartnerType
       <Field label="업체명 / 활동명" name="name" placeholder="예: 성수 헤어살롱 오브" required />
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <Field label="전문 분야" name="category" placeholder="예: 헤어, 스킨케어, 웨딩 메이크업" required />
+        <div>
+          <label className="text-sm font-semibold" htmlFor="category">
+            전문 분야
+          </label>
+          <select
+            id="category"
+            name="category"
+            required
+            defaultValue=""
+            className="mt-2 w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm"
+          >
+            <option value="" disabled>
+              분야를 선택해 주세요
+            </option>
+            {SERVICE_TYPES.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+          <p className="mt-1 text-xs text-muted">
+            고객 예약 신청과 같은 분야로 매칭돼요.
+          </p>
+        </div>
         <div>
           <label className="text-sm font-semibold" htmlFor="neighborhood">
             활동 지역

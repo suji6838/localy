@@ -8,5 +8,6 @@ export async function GET() {
     return NextResponse.json({ error: "인증이 필요합니다." }, { status: 401 });
   }
   const records = await listRecords<BookingRequest>("bookings");
-  return NextResponse.json({ records: records.reverse() });
+  records.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  return NextResponse.json({ records });
 }

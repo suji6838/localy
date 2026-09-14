@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { CATEGORIES, NEIGHBORHOODS } from "@/lib/courses";
-import { PARTNER_TYPES } from "@/lib/partners";
 
 export default function HomePage() {
   return (
@@ -44,35 +43,6 @@ export default function HomePage() {
           </span>
         </div>
       </section>
-
-      {/* Local matching */}
-      <section className="mx-auto max-w-6xl px-6 py-14">
-        <p className="text-xs font-semibold tracking-[0.2em] text-accent">LOCAL MATCHING</p>
-        <h2 className="font-display mt-3 text-2xl font-bold sm:text-[1.7rem]">
-          서울의 현지 파트너를 찾아보세요
-        </h2>
-        <p className="mt-2 text-[15px] text-muted">
-          원하는 연결 방식을 먼저 고른 뒤, 마음에 드는 뷰티 코스를 탐색해 보세요.
-        </p>
-
-        <div className="mt-8 grid gap-5 sm:grid-cols-3">
-          {PARTNER_TYPES.map((type, i) => (
-            <Link
-              key={type.id}
-              href={`/register?type=${type.id}`}
-              className={`rounded-2xl border bg-surface p-6 transition hover:shadow-md ${
-                i === 0 ? "border-accent" : "border-border"
-              }`}
-            >
-              <span className="text-2xl">{PARTNER_ICON[type.id]}</span>
-              <p className="font-display mt-4 text-base font-bold">{type.en}</p>
-              <p className="mt-1 text-sm text-muted">{type.desc}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <div className="mx-auto max-w-6xl border-t border-border" />
 
       {/* Curated courses */}
       <section className="mx-auto max-w-6xl px-6 py-14">
@@ -147,12 +117,6 @@ export default function HomePage() {
     </div>
   );
 }
-
-const PARTNER_ICON: Record<string, string> = {
-  business: "🏢",
-  expert: "👤",
-  creator: "🧑‍🤝‍🧑",
-};
 
 const CATEGORY_ICON: Record<string, string> = {
   beginner: "✦",

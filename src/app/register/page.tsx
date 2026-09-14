@@ -24,6 +24,28 @@ export default async function RegisterPage(props: PageProps<"/register">) {
       <div className="mt-10">
         <RegisterForm defaultType={defaultType} />
       </div>
+
+      <div className="mt-14 border-t border-border pt-10">
+        <p className="text-xs font-semibold tracking-[0.2em] text-accent">LOCAL MATCHING</p>
+        <h2 className="font-display mt-3 text-xl font-bold">3가지 방식으로 참여할 수 있어요</h2>
+        <div className="mt-6 grid gap-5 sm:grid-cols-3">
+          {PARTNER_TYPES.map((type) => (
+            <div key={type.id} className="rounded-2xl border border-border bg-surface p-6">
+              <span className="text-2xl" aria-hidden>
+                {PARTNER_ICON[type.id]}
+              </span>
+              <p className="font-display mt-4 text-base font-bold">{type.en}</p>
+              <p className="mt-1 text-sm text-muted">{type.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
+
+const PARTNER_ICON: Record<string, string> = {
+  business: "🏢",
+  expert: "👤",
+  creator: "🧑‍🤝‍🧑",
+};
