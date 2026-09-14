@@ -11,7 +11,7 @@ export type CourseCategory = "beginner" | "wedding" | "skincare";
 export const CATEGORIES: { id: CourseCategory; ko: string; en: string }[] = [
   { id: "beginner", ko: "K-뷰티 입문", en: "First glow in Seoul" },
   { id: "wedding", ko: "웨딩 메이크업", en: "A polished Seoul look" },
-  { id: "skincare", ko: "피부 관리 데이", en: "Slow beauty, deep rest" },
+  { id: "skincare", ko: "웰니스 데이", en: "Slow beauty, deep rest" },
 ];
 
 export type Course = {
@@ -62,7 +62,7 @@ export const COURSES: Course[] = [
   {
     slug: "skincare-slow-day",
     category: "skincare",
-    title: "피부 관리 데이",
+    title: "웰니스 데이",
     tagline: "Slow beauty, deep rest",
     description:
       "내 피부를 살피고 편안하게 쉬어가는 케어 중심의 하루를 제안해요.",
@@ -70,8 +70,8 @@ export const COURSES: Course[] = [
     duration: "약 5시간",
     priceFrom: 149000,
     stops: [
-      { name: "피부과 연계 스킨 진단", type: "Partner Business" },
-      { name: "시그니처 스파 트리트먼트", type: "Partner Business" },
+      { name: "스킨케어", type: "Partner Business" },
+      { name: "헤어스파케어", type: "Partner Business" },
       { name: "동네 산책 &티타임", type: "Local Creator" },
     ],
   },

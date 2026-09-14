@@ -128,7 +128,7 @@ function categoryTitle(id: string) {
   const map: Record<string, string> = {
     beginner: "K-뷰티 입문",
     wedding: "웨딩 메이크업",
-    skincare: "피부 관리 데이",
+    skincare: "웰니스 데이",
   };
   return map[id];
 }
