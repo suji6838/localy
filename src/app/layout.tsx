@@ -21,9 +21,25 @@ const notoSerifKr = Noto_Serif_KR({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://localy-khaki.vercel.app"),
   title: "LOCALY — Discover Beauty like a local",
   description:
     "뷰티·웰니스 코스를 큐레이션하고, 현지 전문가와 업체를 연결하는 서비스 LOCALY.",
+  openGraph: {
+    title: "LOCALY — Discover Beauty like a local",
+    description:
+      "뷰티·웰니스 코스를 큐레이션하고, 현지 전문가와 업체를 연결하는 서비스 LOCALY.",
+    url: "https://localy-khaki.vercel.app",
+    siteName: "LOCALY",
+    locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LOCALY — Discover Beauty like a local",
+    description:
+      "뷰티·웰니스 코스를 큐레이션하고, 현지 전문가와 업체를 연결하는 서비스 LOCALY.",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
