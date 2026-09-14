@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "잘못된 요청입니다." }, { status: 400 });
   }
 
-  const { type, name, category, neighborhood, intro, contactName, phone, email, links } = body;
+  const { type, name, category, neighborhood, intro, contactName, phone, email, links, agreeTerms, agreePrivacy } = body;
 
   if (
     typeof type !== "string" ||
@@ -25,6 +25,13 @@ export async function POST(request: Request) {
     typeof email !== "string" || !email.trim()
   ) {
     return NextResponse.json({ error: "필수 항목을 모두 입력해 주세요." }, { status: 400 });
+  }
+
+  if (!agreeTerms || !agreePrivacy) {
+    return NextResponse.json(
+      { error: "이용약관과 개인정보 수집·이용에 동의해 주세요." },
+      { status: 400 },
+    );
   }
 
   const application: PartnerApplication = {

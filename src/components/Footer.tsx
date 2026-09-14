@@ -21,6 +21,12 @@ export default function Footer() {
           <Link href="/admin" className="hover:text-foreground">
             파트너 어드민
           </Link>
+          <Link href="/terms" className="hover:text-foreground">
+            이용약관
+          </Link>
+          <Link href="/privacy" className="hover:text-foreground">
+            개인정보처리방침
+          </Link>
         </div>
       </div>
     </footer>

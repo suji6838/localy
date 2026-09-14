@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { NEIGHBORHOODS } from "@/lib/courses";
 import { PARTNER_TYPES, type PartnerType } from "@/lib/partners";
+import ConsentFields from "@/components/ConsentFields";
 
 export default function RegisterForm({ defaultType }: { defaultType: PartnerType }) {
   const [status, setStatus] = useState<"idle" | "submitting" | "done" | "error">("idle");
@@ -121,6 +122,8 @@ export default function RegisterForm({ defaultType }: { defaultType: PartnerType
         name="links"
         placeholder="인스타그램, 홈페이지 등"
       />
+
+      <ConsentFields />
 
       {error && <p className="text-sm text-accent">{error}</p>}
 

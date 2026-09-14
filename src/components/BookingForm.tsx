@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { COURSES, NEIGHBORHOODS } from "@/lib/courses";
+import ConsentFields from "@/components/ConsentFields";
 
 export default function BookingForm({ defaultCourseSlug }: { defaultCourseSlug?: string }) {
   const [status, setStatus] = useState<"idle" | "submitting" | "done" | "error">("idle");
@@ -111,6 +112,8 @@ export default function BookingForm({ defaultCourseSlug }: { defaultCourseSlug?:
           className="mt-2 w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm"
         />
       </div>
+
+      <ConsentFields />
 
       {error && <p className="text-sm text-accent">{error}</p>}
 

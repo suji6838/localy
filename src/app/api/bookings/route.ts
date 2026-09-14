@@ -19,6 +19,8 @@ export async function POST(request: Request) {
     phone,
     email,
     notes,
+    agreeTerms,
+    agreePrivacy,
   } = body;
 
   if (
@@ -31,6 +33,13 @@ export async function POST(request: Request) {
     typeof email !== "string" || !email.trim()
   ) {
     return NextResponse.json({ error: "필수 항목을 모두 입력해 주세요." }, { status: 400 });
+  }
+
+  if (!agreeTerms || !agreePrivacy) {
+    return NextResponse.json(
+      { error: "이용약관과 개인정보 수집·이용에 동의해 주세요." },
+      { status: 400 },
+    );
   }
 
   const booking: BookingRequest = {
