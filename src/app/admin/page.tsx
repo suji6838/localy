@@ -136,9 +136,17 @@ export default function AdminPage() {
               <p className="mt-2 text-xs text-muted">
                 {b.phone} · {b.email}
               </p>
+              {b.selectedPartnerId ? (
+                <p className="mt-2 text-xs font-semibold text-accent">
+                  연결 확정 업체:{" "}
+                  {experts.find((e) => e.id === b.selectedPartnerId)?.name ?? "삭제됨"}
+                </p>
+              ) : (
+                <p className="mt-2 text-xs text-muted">아직 고객이 업체를 선택하지 않았어요.</p>
+              )}
               {b.matchedPartnerIds && b.matchedPartnerIds.length > 0 && (
-                <p className="mt-2 text-xs text-accent">
-                  매칭 파트너:{" "}
+                <p className="mt-1 text-xs text-muted">
+                  제시된 후보:{" "}
                   {b.matchedPartnerIds
                     .map((id) => experts.find((e) => e.id === id)?.name ?? "삭제됨")
                     .join(", ")}

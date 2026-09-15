@@ -28,3 +28,11 @@ export async function matchPartners(
 
   return [...sameNeighborhood, ...otherNeighborhood].slice(0, limit).map(toMatchedPartner);
 }
+
+/**
+ * 고객이 고른 파트너가 실제로 승인된 파트너인지 서버에서 다시 확인한다.
+ */
+export async function isApprovedPartner(id: string): Promise<boolean> {
+  const partners = await listRecords<PartnerApplication>("experts");
+  return partners.some((p) => p.id === id && p.status === "approved");
+}

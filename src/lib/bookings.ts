@@ -11,4 +11,5 @@ export type BookingRequest = {
   email: string;
   notes?: string;
   matchedPartnerIds?: string[];
+  selectedPartnerId?: string;
 };
