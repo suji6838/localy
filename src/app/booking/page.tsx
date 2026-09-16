@@ -11,7 +11,7 @@ export default async function BookingPage(props: PageProps<"/booking">) {
       <p className="text-xs font-semibold tracking-[0.2em] text-accent">BOOK YOUR DAY</p>
       <h1 className="font-display mt-3 text-3xl font-bold">뷰티·웰니스 예약하기</h1>
       <p className="mt-2 text-[15px] text-muted">
-        일정을 정하면 어울리는 업체 3곳을 보여드려요. 그중 원하는 곳 1곳을 골라 바로 연결해 드릴게요.
+        원하는 코스를 고르면 진행 요일에 맞는 날짜를 보여드려요. 날짜와 시간만 골라 바로 예약해 보세요.
       </p>
 
       <div className="mt-10">
