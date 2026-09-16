@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
-import { appendRecord } from "@/lib/store";
+import { insertBooking } from "@/lib/supabase/bookings";
 import { isApprovedPartner } from "@/lib/matching";
 import type { BookingRequest } from "@/lib/bookings";
 
@@ -75,7 +75,7 @@ export async function POST(request: Request) {
     selectedPartnerId: trimmedPartnerId,
   };
 
-  await appendRecord("bookings", booking);
+  await insertBooking(booking);
 
   return NextResponse.json({ ok: true, id: booking.id });
 }

@@ -1,4 +1,4 @@
-import { listRecords } from "@/lib/store";
+import { listApprovedPartners, isApprovedPartner as checkApprovedPartner } from "@/lib/supabase/partners";
 import type { PartnerApplication } from "@/lib/partners";
 
 export type MatchedPartner = Pick<
@@ -20,8 +20,8 @@ export async function matchPartners(
   neighborhood: string,
   limit = 3,
 ): Promise<MatchedPartner[]> {
-  const partners = await listRecords<PartnerApplication>("experts");
-  const approved = partners.filter((p) => p.status === "approved" && p.category === serviceType);
+  const approvedAll = await listApprovedPartners();
+  const approved = approvedAll.filter((p) => p.category === serviceType);
 
   const sameNeighborhood = approved.filter((p) => p.neighborhood === neighborhood);
   const otherNeighborhood = approved.filter((p) => p.neighborhood !== neighborhood);
@@ -33,6 +33,5 @@ export async function matchPartners(
  * 고객이 고른 파트너가 실제로 승인된 파트너인지 서버에서 다시 확인한다.
  */
 export async function isApprovedPartner(id: string): Promise<boolean> {
-  const partners = await listRecords<PartnerApplication>("experts");
-  return partners.some((p) => p.id === id && p.status === "approved");
+  return checkApprovedPartner(id);
 }

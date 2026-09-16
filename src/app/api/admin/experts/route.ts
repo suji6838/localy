@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
 import { isAdminAuthed } from "@/lib/adminAuth";
-import { listRecords, updateRecord } from "@/lib/store";
-import type { PartnerApplication, PartnerStatus } from "@/lib/partners";
+import { listPartners, updatePartnerStatus } from "@/lib/supabase/partners";
+import type { PartnerStatus } from "@/lib/partners";
 
 export async function GET() {
   if (!(await isAdminAuthed())) {
     return NextResponse.json({ error: "인증이 필요합니다." }, { status: 401 });
   }
-  const records = await listRecords<PartnerApplication>("experts");
-  records.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  const records = await listPartners();
   return NextResponse.json({ records });
 }
 
@@ -24,10 +23,7 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: "잘못된 요청입니다." }, { status: 400 });
   }
 
-  const updated = await updateRecord<PartnerApplication>("experts", id, (record) => ({
-    ...record,
-    status: status as PartnerStatus,
-  }));
+  const updated = await updatePartnerStatus(id, status as PartnerStatus);
 
   if (!updated) {
     return NextResponse.json({ error: "대상을 찾을 수 없습니다." }, { status: 404 });

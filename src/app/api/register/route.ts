@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
-import { appendRecord } from "@/lib/store";
+import { insertPartnerApplication } from "@/lib/supabase/partners";
 import { PARTNER_TYPES, type PartnerApplication, type PartnerType } from "@/lib/partners";
 
 const VALID_TYPES = PARTNER_TYPES.map((t) => t.id) as PartnerType[];
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
     links: typeof links === "string" && links.trim() ? links.trim() : undefined,
   };
 
-  await appendRecord("experts", application);
+  await insertPartnerApplication(application);
 
   return NextResponse.json({ ok: true, id: application.id });
 }
