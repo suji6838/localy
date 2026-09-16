@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useAuth } from "@/components/AuthProvider";
 
 export default function Header() {
+  const { user, openAuthModal } = useAuth();
+
   return (
     <header className="border-b border-border">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
@@ -27,6 +32,13 @@ export default function Header() {
           >
             전문가·업체 등록
           </Link>
+          <button
+            type="button"
+            onClick={openAuthModal}
+            className="rounded-full px-4 py-2 hover:bg-surface hover:shadow-sm transition"
+          >
+            {user ? "내 계정" : "로그인"}
+          </button>
           <Link
             href="/booking"
             className="ml-1 rounded-full bg-foreground px-4 py-2 text-background transition hover:opacity-85"
